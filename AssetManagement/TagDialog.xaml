@@ -1,0 +1,42 @@
+﻿<Window x:Class="AssetManagement.TagDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AssetManagement"
+        mc:Ignorable="d"
+        Title="TagDialog" Height="450" Width="800"
+        Icon="D:\russia.png">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Tag Name:" 
+                  Margin="0,0,0,5"/>
+
+        <TextBox x:Name="txtTagName" 
+                 Grid.Row="1" 
+                 Height="25"/>
+
+        <StackPanel Grid.Row="3" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    Margin="0,10,0,0">
+            <Button x:Name="btnSave" 
+                    Content="Save" 
+                    Width="80" 
+                    Height="30" 
+                    Click="btnSave_Click"/>
+            <Button x:Name="btnCancel" 
+                    Content="Cancel" 
+                    Width="80" 
+                    Height="30" 
+                    Margin="10,0,0,0" 
+                    Click="btnCancel_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
