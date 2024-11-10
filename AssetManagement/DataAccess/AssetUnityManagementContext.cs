@@ -39,9 +39,7 @@ public partial class AssetUnityManagementContext : DbContext
         {
             entity.ToTable("Asset");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Description)
                 .HasMaxLength(250)
                 .IsUnicode(false)
@@ -56,9 +54,7 @@ public partial class AssetUnityManagementContext : DbContext
         {
             entity.ToTable("File");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.AssetId).HasColumnName("assetId");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
@@ -87,9 +83,7 @@ public partial class AssetUnityManagementContext : DbContext
         {
             entity.ToTable("Tag");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .IsUnicode(false)

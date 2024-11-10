@@ -1,12 +1,133 @@
 ﻿<Window x:Class="AssetManagement.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AssetManagement"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Asset Management" Height="700" Width="1200"
+        Icon="D:\russia.png">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
+        <!-- Left Panel - Assets and Tags Management -->
+        <DockPanel Grid.Column="0">
+            <GroupBox Header="Asset Management" DockPanel.Dock="Top" Margin="0,0,0,10">
+                <StackPanel>
+                    <Button x:Name="btnNewAsset" Content="Create New" 
+                            Margin="0,5" Height="30" Click="btnNewAsset_Click"/>
+                    <ListBox x:Name="lbAssets" Height="250" 
+                             Margin="0,5" SelectionMode="Single" SelectionChanged="lbAssets_SelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Tag Management" DockPanel.Dock="Top">
+                <StackPanel>
+                    <Button x:Name="btnNewTag" Content="New Tag" 
+                            Margin="0,5" Height="30" Click="btnNewTag_Click"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button x:Name="btnDeleteTag" Content="Delete Tag" 
+                    Margin="0,5,5,5" Height="30" Width="115" Click="btnDeleteTag_Click"/>
+                        <Button x:Name="btnEditTag" Content="Edit Tag" 
+                    Margin="5,5,0,5" Height="30" Width="115" Click="btnEditTag_Click"/>
+                    </StackPanel>
+                    <ListBox x:Name="lbTags" Height="250" 
+                             Margin="0,5" SelectionMode="Single" SelectionChanged="lbTags_SelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </GroupBox>
+        </DockPanel>
+
+        <!-- Right Panel - Asset Details and Files -->
+        <DockPanel Grid.Column="1" Margin="10,0,0,0">
+            <!-- Asset Details Section -->
+            <GroupBox Header="Asset Details" DockPanel.Dock="Top">
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Name:" VerticalAlignment="Center" 
+                              Margin="0,0,10,0"/>
+                    <TextBox x:Name="txtAssetName" Grid.Column="1" 
+                             Margin="0,5" Height="25"/>
+
+                    <TextBlock Text="Description:" Grid.Row="1" 
+                              VerticalAlignment="Top" Margin="0,10,10,0"/>
+                    <TextBox x:Name="txtAssetDescription" Grid.Row="1" 
+                             Grid.Column="1" Margin="0,5" Height="50" 
+                             TextWrapping="Wrap" AcceptsReturn="True"/>
+
+                    <StackPanel Grid.Row="2" Grid.ColumnSpan="2" 
+                               Orientation="Horizontal" Margin="0,10,0,0">
+                        <Button x:Name="btnSaveAsset" Content="Save Asset" 
+                                Width="100" Height="30" Click="btnSaveAsset_Click"/>
+                        <Button x:Name="btnDeleteAsset" Content="Delete Asset" 
+                                Width="100" Height="30" Margin="10,0,0,0" Click="btnDeleteAsset_Click"/>
+                    </StackPanel>
+                </Grid>
+            </GroupBox>
+
+            <!-- Files Section -->
+            <GroupBox Header="Files" DockPanel.Dock="Top">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- File Controls -->
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Button x:Name="btnUploadFile" Content="Upload File" 
+                                Width="100" Height="30" Click="btnUploadFile_Click"/>
+                        <Button x:Name="btnSaveFile" Content="Save File" 
+                                Width="100" Height="30"  Margin="10,0,0,0" Click="btnSaveFile_Click"/>
+                        <Button x:Name="btnDeleteFile" Content="Delete File" 
+                                Width="100" Height="30" Margin="10,0,0,0" Click="btnDeleteFile_Click"/>
+                        <TextBox x:Name="txtSearchFile" Height="30" Width="400"
+                                TextChanged="txtSearchFile_TextChanged"
+                                Margin="160,0,0,0"/>
+                    </StackPanel>
+
+                    <!-- Files DataGrid -->
+                    <DataGrid x:Name="dgFiles" Grid.Row="1" Margin="5" 
+                              AutoGenerateColumns="False" IsReadOnly="False" MouseDoubleClick="dgFiles_MouseDoubleClick">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="File Name" 
+                                              Binding="{Binding Name}" 
+                                              Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Upload Date" 
+                                              Binding="{Binding UploadDate, StringFormat={}{0:dd/MM/yyyy HH:mm}}" 
+                                              Width="150" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Tag" 
+                                                  x:Name="colTags"
+                                                  Binding="{Binding Tag.Name}"
+                                                  Width="150"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </GroupBox>
+
+            <!-- Status Bar -->
+            <StatusBar DockPanel.Dock="Bottom" Height="30">
+                <TextBlock x:Name="txtStatus"/>
+            </StatusBar>
+        </DockPanel>
     </Grid>
 </Window>
